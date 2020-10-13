@@ -1,7 +1,7 @@
 # Django_Project_CICD_Automation-using-Github_Actions-Jenkins-Ansible-Azure_Cloud
 
 <img src="./images/python.jpg" width="190" height="150"><img src="./images/django2.png" width="190" height="150">
-<img src="./images/github2.jpg" width="190" height="150"><img src="./images/jenkins.png" width="190" height="150"><img src="./images/ansible.png" width="190" height="150">
+<img src="./images/github2.png" width="190" height="150"><img src="./images/jenkins.png" width="190" height="150"><img src="./images/ansible.png" width="190" height="150">
 <img src="./images/nginx2.png" width="190" height="150"><img src="./images/gunicorn.png" width="190" height="150">
 
 - Django CI/CD Automation using ***Github Actions***, ***Jenkins***, ***Ansible***, ***Azure Cloud***
