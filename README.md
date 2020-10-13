@@ -1,8 +1,8 @@
 # Django_Project_CICD_Automation-using-Github_Actions-Jenkins-Ansible-Azure_Cloud
 
-<img src="./images/python.jpg" width="190" height="150"><img src="./images/django.png" width="190" height="150">
-<img src="./images/github.jpg" width="190" height="150"><img src="./images/jenkins.png" width="190" height="150"><img src="./images/ansible.png" width="190" height="150">
-<img src="./images/nginx.png" width="190" height="150"><img src="./images/gunicorn.png" width="190" height="150">
+<img src="./images/python.jpg" width="190" height="150"><img src="./images/django2.png" width="190" height="150">
+<img src="./images/github2.jpg" width="190" height="150"><img src="./images/jenkins.png" width="190" height="150"><img src="./images/ansible.png" width="190" height="150">
+<img src="./images/nginx2.png" width="190" height="150"><img src="./images/gunicorn.png" width="190" height="150">
 
 - Django CI/CD Automation using ***Github Actions***, ***Jenkins***, ***Ansible***, ***Azure Cloud***
 - This Project Demonstrates how a Django code will move along the various phases or stages in CI/CD lifecycle, before it is delivered to the customer or before it is live on   Azure Cloud Production server using Github Actions and other ***DevOps Tools***.
