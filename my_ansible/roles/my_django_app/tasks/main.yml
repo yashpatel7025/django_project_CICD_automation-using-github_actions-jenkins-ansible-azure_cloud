@@ -1,0 +1,46 @@
+- name: Clone django project repo #if already exists it will pull otherwise clone
+  git:
+    repo: "git@github.com:yashpatel7025/github_action_proj.git" #ssh clone link..not https
+    dest: "{{projdir}}" 
+    version: master
+    key_file: ~/.ssh/id_rsa #remote machine's private key path
+    force: yes #if yes, any modified files in the working repository will be discarded...if set no..error occurs
+  become_user: yashazure
+
+- name: Manually create the initial virtualenv coz below pip did not work
+  command:
+    cmd: "virtualenv {{projdir}}/venv -p python3"
+    creates: "{{projdir}}/venv"
+
+# - name: Create virtualenv and install packages
+#   pip:
+#     virtualenv: "/home/yashazure/github_actions_test/github_action_proj"
+#     requirements: "/home/yashazure/github_actions_test/github_action_proj/requirements.txt"
+#     virtualenv_python: '/usr/bin/python'
+
+- name: Install requirements
+  pip: 
+    requirements: "{{projdir}}/requirements.txt"
+    virtualenv: "{{projdir}}/venv"
+
+- name: Run Migrate
+  django_manage: 
+    command: migrate
+    app_path: "{{projdir}}"
+    settings: "github_action_proj.settings"
+    virtualenv: "{{projdir}}/venv"
+  become_user: yashazure
+  environment: #while executing any django command from ansible we need to give environment variables used by settings.py
+    SECRET_KEY: "{{SECRET_KEY}}"
+
+- name: Run collectstatic
+  django_manage: 
+    command: collectstatic
+    app_path: "{{projdir}}"
+    settings: "github_action_proj.settings"
+    virtualenv: "{{projdir}}/venv"
+  become_user: yashazure
+  environment:
+    SECRET_KEY: "{{SECRET_KEY}}"
+
+

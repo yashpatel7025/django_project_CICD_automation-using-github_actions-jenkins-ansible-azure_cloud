@@ -1,0 +1,5 @@
+django
+flake8
+djangorestframework
+gunicorn
+mysqlclient

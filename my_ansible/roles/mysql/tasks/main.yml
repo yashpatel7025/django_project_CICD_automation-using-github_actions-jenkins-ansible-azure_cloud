@@ -1,0 +1,33 @@
+---
+ - name: Install the MySQL packages
+   apt: 
+     name: [ 'mysql-server' ,'mysql-client'  ,'python-mysqldb' ,'libmysqlclient-dev'] 
+     state: present 
+     update_cache: yes
+
+ - name: Make sure pymysql is present
+   become: true # needed if the other tasks are not played as root
+   pip:
+    name: pymysql
+    state: present
+     
+ - name: Update MySQL root password for all root accounts
+   mysql_user: 
+    name: root 
+    host: ["127.0.0.1","::1","localhost"] 
+    password: "{{ mysql_root_pass }}"
+    state: present
+
+ - name: Copy the root credentials as .my.cnf file
+   template: src=root.cnf.j2 dest=~/.my.cnf mode=0600
+
+ - name: Ensure Anonymous user(s) are not in the database
+   mysql_user: 
+    name: '' 
+    host:  ["localhost","{{ ansible_hostname }}"]
+    state: absent
+   
+ - name: Remove the test database
+   mysql_db: name=test state=absent
+   notify:
+     - Restart MySQL

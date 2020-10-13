@@ -1,0 +1,10 @@
+[QA]
+52.172.183.84
+
+[Production]
+52.172.183.85 
+     
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+

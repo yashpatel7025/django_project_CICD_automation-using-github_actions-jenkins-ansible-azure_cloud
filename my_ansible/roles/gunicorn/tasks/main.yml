@@ -1,0 +1,31 @@
+---
+- name: create /etc/my_django_proj dir
+  file:
+    path: "/etc/my_django_proj"
+    state: directory
+
+- name: Copy gunicorn config file
+  template:
+    src: my_gunicorn.conf.py
+    dest: "/etc/my_django_proj/my_gunicorn.conf.py"
+
+- name: Copy gunicorn env file
+  template:
+    src: my_gunicorn.env
+    dest: "/etc/my_django_proj/my_gunicorn.env"
+
+- name: Copy gunicorn system unit(systemctl service file)
+  template:
+    src: my_django_project.service
+    dest: "/etc/systemd/system/my_django_project.service"
+
+- name: restart my_django_project.service
+  systemd:
+    name: my_django_project
+    state: restarted  #always restarts service...not idempotent action
+    daemon_reload: yes
+    enabled: yes
+
+- name: make sure my_django_project.service is really active and did not failed on restarted
+  command: systemctl is-active my_django_project.service #if not active throws error
+

@@ -1,0 +1,46 @@
+-
+  name: Example from an Ansible Playbook #name become hosts these are keys of dictionary..so you can place them in any order....but whenever there is dash(-) it means it is list and order matters
+  become: True
+  gather_facts: no
+  vars_files: #vars_files: my_variables.yml gives error(wasted 4hours fifuring out this)
+    - my_variables.yml
+  hosts: all #[myhosts,QA]
+  roles: #roles is collection of list of different role...each role is collection of dict
+    - role: 'roles/nginx' #(dash(-) indicates it is list and order matters here)
+      include_vars: #include_vars:my_variables.yml gives error
+        - my_variables.yml
+      tags: ['nginx']
+    - role: 'roles/my_django_app'
+      include_vars:
+        - my_variables.yml
+      tags: ['my_django_app']
+    - role: 'roles/gunicorn'
+      include_vars:
+        - my_variables.yml
+      tags: ['gunicorn']
+
+
+
+#--------------------without using  my_variables.yml file------------------
+# -
+#   name: Example from an Ansible Playbook
+#   become: True
+#   gather_facts: no
+#   hosts: all
+#   roles:
+#     - role: 'roles/nginx'
+#       vars:
+#         projdir: '/home/yashazure/github_actions_test/github_action_proj'
+#         gunicorn_port: 9000
+#       tags: ['nginx']
+#     - role: 'roles/my_django_app'
+#       vars:
+#         projdir: '/home/yashazure/github_actions_test/github_action_proj'
+#         SECRET_KEY: 'nm$^h$56#3dx#e&24%xauu2&g@-8pcke4r*z#iivz9uef=u0s1'
+#       tags: ['my_django_app']
+#     - role: 'roles/gunicorn'
+#       vars:
+#         projdir: '/home/yashazure/github_actions_test/github_action_proj'
+#         gunicorn_port: 9000
+#         DJANGO_SETTINGS_MODULE: 'github_action_proj.settings'
+#       tags: ['gunicorn']

@@ -1,0 +1,34 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present #make sure nginx is present..if not present then only installs..this is called idempotent...ansible uses idempotence..state : started/stopped are idempotent actions that will not run commands unless necessary. 
+
+- name: Deactivate the default nginx from sites-available
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
+
+- name: Deactivate the default from sites-enabled
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Copy yash_server1.com
+  template:
+    src: yash_server1.com
+    dest: /etc/nginx/sites-available/
+
+- name: Activate the yash_server1.com site
+  file: 
+    src: /etc/nginx/sites-available/yash_server1.com
+    dest: /etc/nginx/sites-enabled/yash_server1.com
+    state: link
+
+- name: Restart nginx.service
+  systemd:
+    state: restarted #always restarts service...not idempotent action
+    name: nginx
+
+- name: make sure nginx.service is really active and did not failed on restarted
+  command: systemctl is-active nginx.service #if not active throws error
